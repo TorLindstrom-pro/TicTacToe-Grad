@@ -11,5 +11,5 @@
 ### Notes:
 
 ~~print game board at start~~
-print starting bot at game start
+~~print starting bot at game start~~
 

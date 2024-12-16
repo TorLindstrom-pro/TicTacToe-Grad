@@ -27,8 +27,10 @@ public class TicTacToeTests
         });
     }
 
-    [Fact(DisplayName = "Starting game should print starting bot")]
-    public void StartingGame_ShouldPrintStartingBot()
+    [Theory(DisplayName = "Starting game should print starting bot")]
+    [InlineData("X")]
+    [InlineData("H")]
+    public void StartingGame_ShouldPrintStartingBot(string startingBotMarker)
     {
         // Arrange
         var outputMock = Substitute.For<Output>();
@@ -36,9 +38,9 @@ public class TicTacToeTests
         var subject = new TicTacToe(outputMock);
         
         // Act
-        subject.Play(new Bot("X"), new Bot("O"));
+        subject.Play(new Bot(startingBotMarker), new Bot("O"));
         
         // Assert
-        outputMock.Received().Print("Bot X starts the game");
+        outputMock.Received().Print($"Bot {startingBotMarker} starts the game");
     }
 }

@@ -2,4 +2,5 @@
 
 public class Bot(string marker)
 {
+	public string Marker { get; } = marker;
 }
