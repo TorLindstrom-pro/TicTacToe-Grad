@@ -30,8 +30,9 @@ public class TicTacToe(Output output)
 		return waitingBot;
 
 		bool LastMoveWon() => board.Tiles
-			.Where(tile => tile.X == 0)
-			.All(tile => tile.Marker == waitingBot.Marker);
+			.GroupBy(tile => tile.X)
+			.Any(group => 
+				group.All(tile => tile.Marker == waitingBot.Marker));
 	}
 
 	private void PrintBoard(Board board)

@@ -28,7 +28,7 @@
 ~~bots take turns~~
 ~~3 vertically is a win~~ 
    ~~given column~~
-   any column
+   ~~any column~~
    ~~any marker~~
-bots play until a vertical win
+~~bots play until a vertical win~~
 

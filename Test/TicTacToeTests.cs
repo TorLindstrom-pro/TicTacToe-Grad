@@ -185,6 +185,63 @@ public class TicTacToeTests
         result.Should().Be(startingBot);
     }
 
+    [Fact(DisplayName = "Bot playing three in a row vertically in rightmost column wins")]
+    public void ThreeInARowVerticallyInRightmostColumn_ShouldWin()
+    {
+        // Arrange
+        var outputMock = Substitute.For<Output>();
+        
+        var subject = new TicTacToe(outputMock);
+    
+        var startingBot = Substitute.For<Bot>("X");
+        startingBot
+            .When(bot => bot.PlayMove(Arg.Any<Board>()))
+            .Do(callInfo =>
+            {
+                switch (callInfo.Arg<Board>().GetAvailableTiles().Count())
+                {
+                    case 9:
+                        MarkTile(callInfo, startingBot, 2, 0);
+                        break;
+                    case 7:
+                        MarkTile(callInfo, startingBot, 2, 1);
+                        break;
+                    case 5:
+                        MarkTile(callInfo, startingBot, 2, 2);
+                        break;
+                }
+            });
+        
+        var secondBot = Substitute.For<Bot>("O");
+        secondBot
+            .When(bot => bot.PlayMove(Arg.Any<Board>()))
+            .Do(callInfo =>
+            {
+                switch (callInfo.Arg<Board>().GetAvailableTiles().Count())
+                {
+                    case 8:
+                        MarkTile(callInfo, secondBot, 0, 0);
+                        break;
+                    case 6:
+                        MarkTile(callInfo, secondBot, 1, 1);
+                        break;
+                }
+            });
+        
+        // Act
+        var result = subject.Play(startingBot, secondBot);
+    
+        // Assert
+        outputMock.Received().Print(
+        " O |   | X " + "\n" +
+            "---+---+---" + "\n" +
+            "   | O | X " + "\n" +
+            "---+---+---" + "\n" +
+            "   |   | X ");
+
+        result.Should().Be(startingBot);
+    }
+
     [Fact(DisplayName = "Winner is printed to console")]
     public void StartingBotIsWinner_ShouldPrintWinner()
     {
