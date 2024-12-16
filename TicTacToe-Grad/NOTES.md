@@ -10,5 +10,6 @@
 ### Time 🍅
 ### Notes:
 
-print game board at start
+~~print game board at start~~
+print starting bot at game start
 

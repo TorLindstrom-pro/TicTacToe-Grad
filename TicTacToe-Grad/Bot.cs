@@ -1,5 +1,5 @@
 ﻿namespace TicTacToe_Grad;
 
-public class Bot
+public class Bot(string marker)
 {
 }

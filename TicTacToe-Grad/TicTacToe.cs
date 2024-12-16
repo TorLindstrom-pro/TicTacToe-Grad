@@ -9,5 +9,6 @@ public class TicTacToe(Output output)
 		output.Print("   |   |   ");
 		output.Print("---+---+---");
 		output.Print("   |   |   ");
+		output.Print("Bot X starts the game");
 	}
 }
