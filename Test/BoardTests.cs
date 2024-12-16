@@ -17,4 +17,17 @@ public class BoardTests
 		// Assert
 		availableTiles.Count().Should().Be(9);
 	}
+	
+	[Fact(DisplayName = "A tile can be marked")]
+	void Mark_ShouldMarkTheTileWithTheMarker()
+	{
+		// Arrange
+		var tile = new Tile();
+		
+		// Act
+		tile.Mark("X");
+		
+		// Assert
+		tile.Marker.Should().Be("X");
+	}
 }

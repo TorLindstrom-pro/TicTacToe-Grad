@@ -21,4 +21,10 @@ public class Board
 
 public class Tile
 {
+	public void Mark(string? marker)
+	{
+		Marker = marker;
+	}
+
+	public string? Marker { get; private set; }
 }
