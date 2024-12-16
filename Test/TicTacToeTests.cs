@@ -1,4 +1,5 @@
 ﻿using NSubstitute;
+using NSubstitute.Core;
 using TicTacToe_Grad;
 
 namespace Test;
@@ -53,14 +54,7 @@ public class TicTacToeTests
         var startingBot = Substitute.For<Bot>("X");
         startingBot
             .When(bot => bot.PlayMove(Arg.Any<Board>()))
-            .Do(callInfo =>
-            {
-                var tile = callInfo
-                    .Arg<Board>()
-                    .GetAvailableTiles()
-                    .Single(tile => tile is { X: 1, Y: 0 });
-                tile.Mark(startingBot.Marker);
-            });
+            .Do(callInfo => MarkTile(callInfo, startingBot, 1, 0));
         
         // Act
         subject.Play(startingBot, new Bot("O"));
@@ -84,26 +78,12 @@ public class TicTacToeTests
         var startingBot = Substitute.For<Bot>("X");
         startingBot
             .When(bot => bot.PlayMove(Arg.Any<Board>()))
-            .Do(callInfo =>
-            {
-                var tile = callInfo
-                    .Arg<Board>()
-                    .GetAvailableTiles()
-                    .Single(tile => tile is { X: 1, Y: 0 });
-                tile.Mark(startingBot.Marker);
-            });
+            .Do(callInfo => MarkTile(callInfo, startingBot, 1, 0));
         
         var secondBot = Substitute.For<Bot>("O");
         secondBot
             .When(bot => bot.PlayMove(Arg.Any<Board>()))
-            .Do(callInfo =>
-            {
-                var tile = callInfo
-                    .Arg<Board>()
-                    .GetAvailableTiles()
-                    .Single(tile => tile is { X: 2, Y: 1 });
-                tile.Mark(secondBot.Marker);
-            });
+            .Do(callInfo => MarkTile(callInfo, secondBot, 2, 1));
         
         // Act
         subject.Play(startingBot, secondBot);
@@ -115,5 +95,14 @@ public class TicTacToeTests
             "   |   | O " + "\n" +
             "---+---+---" + "\n" +
             "   |   |   ");
+    }
+
+    private static void MarkTile(CallInfo callInfo, Bot bot, int x, int y)
+    {
+        var tile = callInfo
+            .Arg<Board>()
+            .GetAvailableTiles()
+            .Single(tile => tile.X == x && tile.Y == y);
+        tile.Mark(bot.Marker);
     }
 }
