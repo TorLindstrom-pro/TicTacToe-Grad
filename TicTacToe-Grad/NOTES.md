@@ -10,10 +10,12 @@
 ### Time 🍅
 ### Notes:
 
+1. Print at game start
 ~~print game board at start~~
 ~~print starting bot at game start~~
 ~~runnable from console~~
 
+2. Vertical wins
 bots make moves
   ~~there exists a board~~
   ~~there exists tiles~~
