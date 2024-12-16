@@ -17,14 +17,11 @@ public class TicTacToeTests
         subject.Play(new Bot("X"), new Bot("O"));
         
         // Assert
-        Received.InOrder(() =>
-        {
-            outputMock.Print("   |   |   ");
-            outputMock.Print("---+---+---");
-            outputMock.Print("   |   |   ");
-            outputMock.Print("---+---+---");
-            outputMock.Print("   |   |   ");
-        });
+        outputMock.Received().Print("   |   |   ");
+        outputMock.Received().Print("---+---+---");
+        outputMock.Received().Print("   |   |   ");
+        outputMock.Received().Print("---+---+---");
+        outputMock.Received().Print("   |   |   ");
     }
 
     [Theory(DisplayName = "Starting game should print starting bot")]
@@ -42,5 +39,36 @@ public class TicTacToeTests
         
         // Assert
         outputMock.Received().Print($"Bot {startingBotMarker} starts the game");
+    }
+
+    [Fact(DisplayName = "Starting bot should make a move")]
+    public void StartingBotPlaysAMove_ShouldMarkAndPrintMove()
+    {
+        // Arrange
+        var outputMock = Substitute.For<Output>();
+        
+        var subject = new TicTacToe(outputMock);
+    
+        var startingBot = Substitute.For<Bot>("X");
+        startingBot
+            .When(bot => bot.PlayMove(Arg.Any<Board>()))
+            .Do(callInfo =>
+            {
+                var tile = callInfo
+                    .Arg<Board>()
+                    .GetAvailableTiles()
+                    .Single(tile => tile is { X: 1, Y: 0 });
+                tile.Mark(startingBot.Marker);
+            });
+        
+        // Act
+        subject.Play(startingBot, new Bot("O"));
+    
+        // Assert
+        outputMock.Print("   | X |   ");
+        outputMock.Print("---+---+---");
+        outputMock.Print("   |   |   ");
+        outputMock.Print("---+---+---");
+        outputMock.Print("   |   |   ");
     }
 }

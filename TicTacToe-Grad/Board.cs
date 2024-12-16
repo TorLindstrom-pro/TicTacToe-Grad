@@ -2,7 +2,8 @@
 
 public class Board
 {
-	private readonly List<Tile> _tiles = [
+	public List<Tile> Tiles { get; } =
+	[
 		new(0, 0),
 		new(0, 1),
 		new(0, 2),
@@ -14,7 +15,7 @@ public class Board
 		new(2, 2)
 	];
 
-	public IEnumerable<Tile> GetAvailableTiles() => _tiles.Where(tile => tile.Marker is null);
+	public IEnumerable<Tile> GetAvailableTiles() => Tiles.Where(tile => tile.Marker is null);
 }
 
 public class Tile(int x, int y)

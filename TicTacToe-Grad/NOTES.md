@@ -16,14 +16,18 @@
 ~~runnable from console~~
 
 2. Vertical wins
-bots make moves
+~~bots make moves~~
   ~~there exists a board~~
   ~~there exists tiles~~
   ~~boards has available tiles~~
   ~~you can mark tiles~~
   ~~board can return un-marked tiles~~
-  bot plays moves during game
-prints moves to console
+  ~~bot plays moves during game~~
+    ~~tictactoe has a board~~
+~~prints moves to console~~
 bots take turns
 3 vertically is a win 
+   given column
+   any column
+   any marker
 
