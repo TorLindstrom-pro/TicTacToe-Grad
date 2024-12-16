@@ -11,6 +11,7 @@ public class TicTacToe(Output output)
 		PrintBoard(board);
 		
 		output.Print("Bot " + startingBot.Marker + " starts the game");
+		output.HangOnScreen();
 
 		var currentBot = startingBot;
 		var waitingBot = secondBot;
@@ -23,7 +24,9 @@ public class TicTacToe(Output output)
 			(currentBot, waitingBot) = (waitingBot, currentBot);
 		}
 		
-		return currentBot;
+		output.Print("Bot " + waitingBot.Marker + " won the game!");
+		output.HangOnScreen();
+		
 		return waitingBot;
 
 		bool LastMoveWon() => board.Tiles
@@ -47,6 +50,7 @@ public class TicTacToe(Output output)
 			.Append(FormatRow(2));
 
 		output.Print(stringBuilder.ToString());
+		output.HangOnScreen();
 		
 		return;
 

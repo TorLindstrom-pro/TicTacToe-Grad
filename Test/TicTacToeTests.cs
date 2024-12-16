@@ -185,6 +185,35 @@ public class TicTacToeTests
         result.Should().Be(startingBot);
     }
 
+    [Fact(DisplayName = "Winner is printed to console")]
+    public void StartingBotIsWinner_ShouldPrintWinner()
+    {
+        // Arrange
+        var outputMock = Substitute.For<Output>();
+        
+        var subject = new TicTacToe(outputMock);
+    
+        var startingBot = Substitute.For<Bot>("X");
+        startingBot
+            .When(bot => bot.PlayMove(Arg.Any<Board>()))
+            .Do(callInfo =>
+            {
+                MarkTile(callInfo, startingBot, 0, 0);
+                MarkTile(callInfo, startingBot, 0, 1);
+                MarkTile(callInfo, startingBot, 0, 2);
+            });
+        
+        var secondBot = Substitute.For<Bot>("O");
+        
+        // Act
+        var result = subject.Play(startingBot, secondBot);
+    
+        // Assert
+        result.Should().Be(startingBot);
+        
+        outputMock.Received().Print("Bot X won the game!");
+    }
+
     [Fact(DisplayName = "Second bot playing three in a row vertically wins")]
     public void SecondBotPlaysThreeInARowVertically_ShouldReturnSecondBotAsWinner()
     {

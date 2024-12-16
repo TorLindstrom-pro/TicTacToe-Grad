@@ -6,4 +6,9 @@ public class Output
 	{
 		Console.WriteLine(line);
 	}
+
+	public virtual void HangOnScreen()
+	{
+		Thread.Sleep(2000);
+	}
 }
