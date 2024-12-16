@@ -12,4 +12,5 @@
 
 ~~print game board at start~~
 ~~print starting bot at game start~~
+~~runnable from console~~
 

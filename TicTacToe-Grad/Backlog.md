@@ -1,7 +1,7 @@
 ﻿# User stories
 
 ## Print board
-starting game prints empty board
+~~starting game prints empty board~~
 
 ## Vertical wins
 - - x
