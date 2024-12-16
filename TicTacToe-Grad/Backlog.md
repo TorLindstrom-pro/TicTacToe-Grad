@@ -1,9 +1,9 @@
 ﻿# User stories
 
-## Print board
+## ~~Print board~~
 ~~starting game prints empty board~~
 
-## Vertical wins
+## ~~Vertical wins~~
 - - x
 o - x
 - o x -> x wins
