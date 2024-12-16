@@ -71,4 +71,47 @@ public class TicTacToeTests
         outputMock.Print("---+---+---");
         outputMock.Print("   |   |   ");
     }
+
+    [Fact(DisplayName = "Both bots should make moves")]
+    public void BothBotsPlaysAMove_ShouldMarkAndPrintBothMoves()
+    {
+        // Arrange
+        var outputMock = Substitute.For<Output>();
+        
+        var subject = new TicTacToe(outputMock);
+    
+        var startingBot = Substitute.For<Bot>("X");
+        startingBot
+            .When(bot => bot.PlayMove(Arg.Any<Board>()))
+            .Do(callInfo =>
+            {
+                var tile = callInfo
+                    .Arg<Board>()
+                    .GetAvailableTiles()
+                    .Single(tile => tile is { X: 1, Y: 0 });
+                tile.Mark(startingBot.Marker);
+            });
+        
+        var secondBot = Substitute.For<Bot>("O");
+        secondBot
+            .When(bot => bot.PlayMove(Arg.Any<Board>()))
+            .Do(callInfo =>
+            {
+                var tile = callInfo
+                    .Arg<Board>()
+                    .GetAvailableTiles()
+                    .Single(tile => tile is { X: 2, Y: 1 });
+                tile.Mark(secondBot.Marker);
+            });
+        
+        // Act
+        subject.Play(startingBot, secondBot);
+    
+        // Assert
+        outputMock.Print("   | X |   ");
+        outputMock.Print("---+---+---");
+        outputMock.Print("   | O |   ");
+        outputMock.Print("---+---+---");
+        outputMock.Print("   |   |   ");
+    }
 }

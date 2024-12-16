@@ -25,7 +25,7 @@
   ~~bot plays moves during game~~
     ~~tictactoe has a board~~
 ~~prints moves to console~~
-bots take turns
+~~bots take turns~~
 3 vertically is a win 
    given column
    any column
