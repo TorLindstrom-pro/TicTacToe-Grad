@@ -3,7 +3,7 @@ using TicTacToe_Grad;
 
 namespace Test;
 
-public class UnitTest1
+public class TicTacToeTests
 {
     [Fact(DisplayName = "Starting game should print empty board")]
     public void StartingGame_ShouldPrintEmptyBoard()
