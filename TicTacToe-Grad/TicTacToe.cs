@@ -4,6 +4,10 @@ public class TicTacToe(Output output)
 {
 	public void Play(Bot bot, Bot bot1)
 	{
-		output.PrintBoard();
+		output.Print("   |   |   ");
+		output.Print("---+---+---");
+		output.Print("   |   |   ");
+		output.Print("---+---+---");
+		output.Print("   |   |   ");
 	}
 }

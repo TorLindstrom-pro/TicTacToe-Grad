@@ -17,6 +17,10 @@ public class TicTacToeTests
         subject.Play(new Bot(), new Bot());
         
         // Assert
-        outputMock.Received().PrintBoard();
+        outputMock.Received().Print("   |   |   ");
+        outputMock.Received().Print("---+---+---");
+        outputMock.Received().Print("   |   |   ");
+        outputMock.Received().Print("---+---+---");
+        outputMock.Received().Print("   |   |   ");
     }
 }
