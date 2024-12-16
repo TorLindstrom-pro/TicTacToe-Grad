@@ -9,3 +9,6 @@
 ### Goal: 
 ### Time 🍅
 ### Notes:
+
+print game board at start
+
