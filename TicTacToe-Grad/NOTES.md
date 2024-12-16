@@ -14,3 +14,13 @@
 ~~print starting bot at game start~~
 ~~runnable from console~~
 
+bots make moves
+  there exists a board
+  there exists tiles
+  boards has available tiles
+  you can mark tiles
+  bot plays moves during game
+prints moves to console
+bots take turns
+3 vertically is a win 
+
