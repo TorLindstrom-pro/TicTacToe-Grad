@@ -4,7 +4,7 @@ namespace TicTacToe_Grad;
 
 public class TicTacToe(Output output)
 {
-	public void Play(Bot startingBot, Bot secondBot)
+	public Bot Play(Bot startingBot, Bot secondBot)
 	{
 		var board = new Board();
 		
@@ -13,10 +13,17 @@ public class TicTacToe(Output output)
 		output.Print("Bot " + startingBot.Marker + " starts the game");
 		
 		startingBot.PlayMove(board);
+		
 		PrintBoard(board);
 		
 		secondBot.PlayMove(board);
+		startingBot.PlayMove(board);
+		secondBot.PlayMove(board);
+		startingBot.PlayMove(board);
+		
 		PrintBoard(board);
+
+		return startingBot;
 	}
 
 	private void PrintBoard(Board board)
