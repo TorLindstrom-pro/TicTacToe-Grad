@@ -15,8 +15,14 @@ public class TicTacToeTests
         
         var subject = new TicTacToe(outputMock);
         
+        var startingBot = Substitute.For<Bot>("X");
+        
+        startingBot
+            .When(bot => bot.PlayMove(Arg.Any<Board>()))
+            .Do(callInfo => throw new AbortTestException());
+        
         // Act
-        subject.Play(new Bot("X"), new Bot("O"));
+        Assert.Throws<AbortTestException>(() => subject.Play(startingBot, new Bot("O")));
         
         // Assert
         outputMock.Received().Print(
@@ -37,8 +43,13 @@ public class TicTacToeTests
         
         var subject = new TicTacToe(outputMock);
         
+        var startingBot = Substitute.For<Bot>(startingBotMarker);
+        startingBot
+            .When(bot => bot.PlayMove(Arg.Any<Board>()))
+            .Do(callInfo => throw new AbortTestException());
+        
         // Act
-        subject.Play(new Bot(startingBotMarker), new Bot("O"));
+        Assert.Throws<AbortTestException>(() => subject.Play(startingBot, new Bot("O")));
         
         // Assert
         outputMock.Received().Print($"Bot {startingBotMarker} starts the game");
@@ -59,10 +70,12 @@ public class TicTacToeTests
             {
                 if (callInfo.Arg<Board>().GetAvailableTiles().Count() == 9)
                     MarkTile(callInfo, startingBot, 1, 0);
+                else
+                    throw new AbortTestException();
             });
         
         // Act
-        subject.Play(startingBot, new Bot("O"));
+        Assert.Throws<AbortTestException>(() => subject.Play(startingBot, new Bot("O")));
     
         // Assert
         outputMock.Print("   | X |   ");
@@ -87,6 +100,8 @@ public class TicTacToeTests
             {
                 if (callInfo.Arg<Board>().GetAvailableTiles().Count() == 9)
                     MarkTile(callInfo, startingBot, 1, 0);
+                else
+                    throw new AbortTestException();
             });
         
         var secondBot = Substitute.For<Bot>("O");
@@ -99,7 +114,7 @@ public class TicTacToeTests
             });
         
         // Act
-        subject.Play(startingBot, secondBot);
+        Assert.Throws<AbortTestException>(() => subject.Play(startingBot, secondBot));
     
         // Assert
         outputMock.Received().Print(
@@ -167,6 +182,66 @@ public class TicTacToeTests
         result.Should().Be(startingBot);
     }
 
+    [Fact(DisplayName = "Second bot playing three in a row vertically wins")]
+    public void SecondBotPlaysThreeInARowVertically_ShouldReturnSecondBotAsWinner()
+    {
+        // Arrange
+        var outputMock = Substitute.For<Output>();
+        
+        var subject = new TicTacToe(outputMock);
+    
+        var startingBot = Substitute.For<Bot>("X");
+        startingBot
+            .When(bot => bot.PlayMove(Arg.Any<Board>()))
+            .Do(callInfo =>
+            {
+                switch (callInfo.Arg<Board>().GetAvailableTiles().Count())
+                {
+                    case 9:
+                        MarkTile(callInfo, startingBot, 1, 0);
+                        break;
+                    case 7:
+                        MarkTile(callInfo, startingBot, 2, 1);
+                        break;
+                    case 5:
+                        MarkTile(callInfo, startingBot, 1, 2);
+                        break;
+                }
+            });
+        
+        var secondBot = Substitute.For<Bot>("O");
+        secondBot
+            .When(bot => bot.PlayMove(Arg.Any<Board>()))
+            .Do(callInfo =>
+            {
+                switch (callInfo.Arg<Board>().GetAvailableTiles().Count())
+                {
+                    case 8:
+                        MarkTile(callInfo, secondBot, 0, 0);
+                        break;
+                    case 6:
+                        MarkTile(callInfo, secondBot, 0, 1);
+                        break;
+                    case 4:
+                        MarkTile(callInfo, secondBot, 0, 2);
+                        break;
+                }
+            });
+        
+        // Act
+        var result = subject.Play(startingBot, secondBot);
+    
+        // Assert
+        outputMock.Received().Print(
+        " O | X |   " + "\n" +
+            "---+---+---" + "\n" +
+            " O |   | X " + "\n" +
+            "---+---+---" + "\n" +
+            " O | X |   ");
+
+        result.Should().Be(secondBot);
+    }
+
     private static void MarkTile(CallInfo callInfo, Bot bot, int x, int y)
     {
         var tile = callInfo
@@ -176,3 +251,5 @@ public class TicTacToeTests
         tile.Mark(bot.Marker);
     }
 }
+
+public class AbortTestException: Exception;

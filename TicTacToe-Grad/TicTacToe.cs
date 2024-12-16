@@ -11,19 +11,23 @@ public class TicTacToe(Output output)
 		PrintBoard(board);
 		
 		output.Print("Bot " + startingBot.Marker + " starts the game");
-		
-		startingBot.PlayMove(board);
-		
-		PrintBoard(board);
-		
-		secondBot.PlayMove(board);
-		startingBot.PlayMove(board);
-		secondBot.PlayMove(board);
-		startingBot.PlayMove(board);
-		
-		PrintBoard(board);
 
-		return startingBot;
+		var currentBot = startingBot;
+		var waitingBot = secondBot;
+		
+		while (!CurrentBotWon())
+		{
+			(currentBot, waitingBot) = (waitingBot, currentBot);
+			
+			currentBot.PlayMove(board);
+			PrintBoard(board);
+		}
+		
+		return currentBot;
+
+		bool CurrentBotWon() => board.Tiles
+			.Where(tile => tile.X == 0)
+			.All(tile => tile.Marker == currentBot.Marker);
 	}
 
 	private void PrintBoard(Board board)

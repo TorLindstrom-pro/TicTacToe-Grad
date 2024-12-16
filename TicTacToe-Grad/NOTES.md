@@ -26,9 +26,9 @@
     ~~tictactoe has a board~~
 ~~prints moves to console~~
 ~~bots take turns~~
-3 vertically is a win 
-   given column
+~~3 vertically is a win~~ 
+   ~~given column~~
    any column
-   any marker
+   ~~any marker~~
 bots play until a vertical win
 
