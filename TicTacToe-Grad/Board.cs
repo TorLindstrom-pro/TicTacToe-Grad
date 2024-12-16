@@ -2,25 +2,26 @@
 
 public class Board
 {
-	public IEnumerable<Tile> GetAvailableTiles()
-	{
-		return new List<Tile>()
-		{
-			new Tile(),
-			new Tile(),
-			new Tile(),
-			new Tile(),
-			new Tile(),
-			new Tile(),
-			new Tile(),
-			new Tile(),
-			new Tile()
-		};
-	}
+	private readonly List<Tile> _tiles = [
+		new(0, 0),
+		new(0, 1),
+		new(0, 2),
+		new(1, 0),
+		new(1, 1),
+		new(1, 2),
+		new(2, 0),
+		new(2, 1),
+		new(2, 2)
+	];
+
+	public IEnumerable<Tile> GetAvailableTiles() => _tiles.Where(tile => tile.Marker is null);
 }
 
-public class Tile
+public class Tile(int x, int y)
 {
+	public int X { get; } = x;
+	public int Y { get; } = y;
+
 	public void Mark(string? marker)
 	{
 		Marker = marker;

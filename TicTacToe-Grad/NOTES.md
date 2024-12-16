@@ -19,7 +19,7 @@ bots make moves
   ~~there exists tiles~~
   ~~boards has available tiles~~
   ~~you can mark tiles~~
-  board can return un-marked tiles
+  ~~board can return un-marked tiles~~
   bot plays moves during game
 prints moves to console
 bots take turns
