@@ -15,19 +15,20 @@ public class TicTacToe(Output output)
 		var currentBot = startingBot;
 		var waitingBot = secondBot;
 		
-		while (!CurrentBotWon())
+		while (!LastMoveWon())
 		{
-			(currentBot, waitingBot) = (waitingBot, currentBot);
-			
 			currentBot.PlayMove(board);
 			PrintBoard(board);
+			
+			(currentBot, waitingBot) = (waitingBot, currentBot);
 		}
 		
 		return currentBot;
+		return waitingBot;
 
-		bool CurrentBotWon() => board.Tiles
+		bool LastMoveWon() => board.Tiles
 			.Where(tile => tile.X == 0)
-			.All(tile => tile.Marker == currentBot.Marker);
+			.All(tile => tile.Marker == waitingBot.Marker);
 	}
 
 	private void PrintBoard(Board board)

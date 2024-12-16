@@ -70,12 +70,15 @@ public class TicTacToeTests
             {
                 if (callInfo.Arg<Board>().GetAvailableTiles().Count() == 9)
                     MarkTile(callInfo, startingBot, 1, 0);
-                else
-                    throw new AbortTestException();
             });
         
+        var secondBot = Substitute.For<Bot>("X");
+        secondBot
+            .When(bot => bot.PlayMove(Arg.Any<Board>()))
+            .Do(callInfo => throw new AbortTestException());
+        
         // Act
-        Assert.Throws<AbortTestException>(() => subject.Play(startingBot, new Bot("O")));
+        Assert.Throws<AbortTestException>(() => subject.Play(startingBot, secondBot));
     
         // Assert
         outputMock.Print("   | X |   ");
