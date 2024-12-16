@@ -1,37 +1,51 @@
-﻿namespace TicTacToe_Grad;
+﻿using System.Text;
+
+namespace TicTacToe_Grad;
 
 public class TicTacToe(Output output)
 {
-	public void Play(Bot bot, Bot bot1)
+	public void Play(Bot startingBot, Bot secondBot)
 	{
 		var board = new Board();
 		
 		PrintBoard(board);
 		
-		output.Print("Bot " + bot.Marker + " starts the game");
+		output.Print("Bot " + startingBot.Marker + " starts the game");
 		
-		bot.PlayMove(board);
+		startingBot.PlayMove(board);
+		PrintBoard(board);
 		
+		secondBot.PlayMove(board);
 		PrintBoard(board);
 	}
 
 	private void PrintBoard(Board board)
 	{
-		PrintRow(0);
-		output.Print("---+---+---");
-		PrintRow(1);
-		output.Print("---+---+---");
-		PrintRow(2);
+		var stringBuilder = new StringBuilder();
+		
+		stringBuilder
+			.Append(FormatRow(0))
+			.Append("\n")
+			.Append("---+---+---")
+			.Append("\n")
+			.Append(FormatRow(1))
+			.Append("\n")
+			.Append("---+---+---")
+			.Append("\n")
+			.Append(FormatRow(2));
+
+		output.Print(stringBuilder.ToString());
 		
 		return;
 
-		void PrintRow(int index)
+		string FormatRow(int index)
 		{
 			var paddedTileMarkers = board.Tiles
 				.Where(tile => tile.Y == index)
 				.Select(tile => " " + (tile.Marker ?? " ") + " ");
 			var formattedRow = string.Join("|", paddedTileMarkers);
-			output.Print(formattedRow);
+
+			return formattedRow;
 		}
 	}
 }

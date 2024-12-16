@@ -17,11 +17,12 @@ public class TicTacToeTests
         subject.Play(new Bot("X"), new Bot("O"));
         
         // Assert
-        outputMock.Received().Print("   |   |   ");
-        outputMock.Received().Print("---+---+---");
-        outputMock.Received().Print("   |   |   ");
-        outputMock.Received().Print("---+---+---");
-        outputMock.Received().Print("   |   |   ");
+        outputMock.Received().Print(
+        "   |   |   " + "\n" +
+            "---+---+---" + "\n" +
+            "   |   |   " + "\n" +
+            "---+---+---" + "\n" +
+            "   |   |   ");
     }
 
     [Theory(DisplayName = "Starting game should print starting bot")]
@@ -108,10 +109,11 @@ public class TicTacToeTests
         subject.Play(startingBot, secondBot);
     
         // Assert
-        outputMock.Print("   | X |   ");
-        outputMock.Print("---+---+---");
-        outputMock.Print("   | O |   ");
-        outputMock.Print("---+---+---");
-        outputMock.Print("   |   |   ");
+        outputMock.Received().Print(
+        "   | X |   " + "\n" +
+            "---+---+---" + "\n" +
+            "   |   | O " + "\n" +
+            "---+---+---" + "\n" +
+            "   |   |   ");
     }
 }

@@ -30,4 +30,5 @@
    given column
    any column
    any marker
+bots play until a vertical win
 
